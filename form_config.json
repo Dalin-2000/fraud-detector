@@ -1,0 +1,80 @@
+{
+  "sections": [
+    {
+      "title": "💳 Core Transaction",
+      "fields": [
+        { "name": "transaction_type",  "type": "select", "label": "Transaction Type" },
+        { "name": "amount_ngn",        "type": "number", "label": "Amount (NGN)", "min": 100, "max": 10000000, "default": 15000 },
+        { "name": "merchant_category", "type": "select", "label": "Merchant Category" },
+        { "name": "payment_channel",   "type": "select", "label": "Payment Channel" },
+        { "name": "location",          "type": "select", "label": "Location (City)" },
+        { "name": "device_used",       "type": "select", "label": "Device Used" }
+      ]
+    },
+    {
+      "title": "👤 Sender Profile",
+      "fields": [
+        { "name": "sender_persona",         "type": "select", "label": "Sender Persona" },
+        { "name": "bvn_linked",             "type": "toggle", "label": "BVN Linked?",  "default": true },
+        { "name": "new_device_transaction", "type": "toggle", "label": "New Device?",  "default": false }
+      ]
+    },
+    {
+      "title": "⚠️ Risk Signals",
+      "fields": [
+        {
+          "name": "time_since_last_transaction",
+          "type": "pills",
+          "label": "Minutes Since Last Transaction",
+          "options": {
+            "Just now (< 1 min)": 0.5,
+            "< 30 minutes": 15.0,
+            "1 hour": 60.0,
+            "3 hours": 180.0,
+            "Half day": 720.0,
+            "1 day+": 1440.0
+          },
+          "default": "1 hour"
+        },
+        {
+          "name": "spending_deviation_score",
+          "type": "pills",
+          "label": "Spending Deviation Score",
+          "options": {
+            "Normal (0)": 0.0,
+            "Slightly off (2)": 2.0,
+            "Unusual (5)": 5.0,
+            "Very unusual (8)": 8.0,
+            "Extreme (10)": 10.0
+          },
+          "default": "Normal (0)"
+        },
+        {
+          "name": "velocity_score",
+          "type": "pills",
+          "label": "Velocity Score",
+          "options": {
+            "None (0)": 0,
+            "Low (1-3)": 2,
+            "Medium (4-9)": 6,
+            "High (10-15)": 12,
+            "Very high (16+)": 18
+          },
+          "default": "None (0)"
+        },
+        {
+          "name": "geo_anomaly_score",
+          "type": "pills",
+          "label": "Geo Anomaly Score",
+          "options": {
+            "Normal (0.0)": 0.0,
+            "Slightly off (0.3)": 0.3,
+            "Unusual (0.7)": 0.7,
+            "Impossible travel (1.0)": 1.0
+          },
+          "default": "Normal (0.0)"
+        }
+      ]
+    }
+  ]
+}
