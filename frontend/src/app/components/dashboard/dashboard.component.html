@@ -1,0 +1,31 @@
+<div class="dashboard">
+
+  <nav class="topbar">
+    <div class="topbar-brand">
+      <span class="brand-icon">🛡️</span>
+      <span class="brand-name">FraudGuard</span>
+    </div>
+    <span class="topbar-badge">AI-Powered</span>
+  </nav>
+
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1>Transaction Risk Analyser</h1>
+      <p>Fill in the transaction details on the left and hit <strong>Check Transaction</strong> to get an instant fraud risk score from the trained model.</p>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="panel form-panel">
+      <app-transaction-form (submitted)="onTransactionSubmit($event)"></app-transaction-form>
+    </section>
+    <section class="panel result-panel" #resultPanel>
+      <app-prediction-result [result]="result" [loading]="loading" [error]="error"></app-prediction-result>
+    </section>
+  </main>
+
+  <footer class="dashboard-footer">
+    Nigerian Financial Fraud Detector · Built with FastAPI &amp; Angular
+  </footer>
+
+</div>

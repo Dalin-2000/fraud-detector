@@ -1,0 +1,64 @@
+<div class="prediction-result">
+  <div class="result-header">
+    <h2>Risk Analysis</h2>
+    <span class="header-hint">Results appear here after submission</span>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="state loading">
+    <span class="spinner"></span>
+    Analysing transaction&hellip;
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="state error">
+    <span class="state-icon">⚠️</span>
+    {{ error }}
+  </div>
+
+  <!-- Empty -->
+  <div *ngIf="!loading && !error && !result" class="state empty">
+    <p>Submit transaction details to get an instant fraud risk score from the AI model.</p>
+  </div>
+
+  <!-- Result card -->
+  <div *ngIf="result && !loading" class="result-card"
+       [class.fraud]="result.is_fraud"
+       [class.legitimate]="!result.is_fraud">
+
+    <!-- Verdict badge -->
+    <div class="verdict">
+      <div class="verdict-icon">{{ result.is_fraud ? '🚨' : '✅' }}</div>
+      <div class="verdict-text">
+        <h3>{{ result.is_fraud ? 'Fraud Detected' : 'Legitimate' }}</h3>
+        <span class="verdict-sub">{{ result.is_fraud ? 'High risk — review required' : 'Transaction appears safe' }}</span>
+      </div>
+    </div>
+
+    <!-- Probability score -->
+    <div class="score-block">
+      <div class="score-label">Fraud Probability</div>
+      <div class="score-value" [class.score-high]="result.is_fraud" [class.score-low]="!result.is_fraud">
+        {{ (result.fraud_probability * 100).toFixed(1) }}%
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="prob-bar-wrap">
+      <div class="prob-bar">
+        <div class="prob-fill"
+             [style.width.%]="result.fraud_probability * 100"
+             [class.fill-fraud]="result.is_fraud"
+             [class.fill-safe]="!result.is_fraud">
+        </div>
+      </div>
+      <div class="prob-ticks">
+        <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <p class="result-message">{{ result.message }}</p>
+
+  </div>
+</div>

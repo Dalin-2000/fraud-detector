@@ -1,0 +1,68 @@
+# ======================
+# macOS
+# ======================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# ======================
+# Data (too large for git — 968 MB exceeds GitHub's 100 MB limit)
+# ======================
+data/raw/
+data/processed/
+notebooks/*.csv
+
+# ======================
+# ML Models (binary files, too large for GitHub)
+# ======================
+backend/ml_models/*.pkl
+backend/ml_models/*.joblib
+*.pkl
+*.joblib
+
+# ======================
+# Python / Backend
+# ======================
+.venv/
+venv/
+env/
+backend/.venv/
+backend/venv/
+backend/.env
+__pycache__/
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.Python
+
+# ======================
+# Jupyter Notebooks
+# ======================
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# ======================
+# Angular / Frontend
+# ======================
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/*.js.map
+
+# ======================
+# Environment / Secrets
+# ======================
+.env
+*.env
+!.env.example
+*.key
+*.pem

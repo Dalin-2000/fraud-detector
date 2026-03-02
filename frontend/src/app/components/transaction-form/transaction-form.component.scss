@@ -1,0 +1,287 @@
+.transaction-form {
+  .form-header {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ── Section blocks ───────────────────────────────────────────────
+.form-section {
+  margin-bottom: 1.4rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+
+  .section-icon {
+    font-size: 1rem;
+  }
+}
+
+// ── Form grid ───────────────────────────────────────────────────
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #374151;
+  }
+
+  .tooltip-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    cursor: help;
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: color 0.15s;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  input,
+  select {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 0.75rem;
+    background: #f9fafb;
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    font-size: 0.93rem;
+
+    &:focus {
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+  }
+
+  select { cursor: pointer; }
+
+  small {
+    font-size: 0.74rem;
+    color: var(--danger);
+  }
+}
+
+.form-row.invalid {
+  input, select {
+    border-color: var(--danger);
+    background: #fff5f5;
+  }
+}
+
+// ── Checkbox toggles ─────────────────────────────────────────────
+.checkbox-grid {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.toggle-card {
+  flex: 1;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  font-size: 0.88rem;
+  font-weight: 500;
+
+  input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+    font-weight: 600;
+  }
+}
+
+// ── Pill picker rows ───────────────────────────────────────────────
+.pill-row {
+  grid-column: span 2;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  gap: 0.55rem;
+}
+
+.pill-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+
+  label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0;
+  }
+
+  .pill-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    &.warn {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    &.ok {
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+  }
+}
+
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  .pill {
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: #fff;
+    font-size: 0.79rem;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    transition: border-color 0.13s, background 0.13s, color 0.13s, box-shadow 0.13s;
+    line-height: 1.5;
+    outline: none;
+
+    &:hover:not(.active) {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #eff6ff;
+    }
+
+    &.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+  }
+}
+
+// ── Action buttons ───────────────────────────────────────────────
+.form-actions {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.65rem;
+
+  button {
+    border: none;
+    border-radius: 10px;
+    padding: 0.7rem 1.25rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+
+  button[type='submit'] {
+    flex: 1;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+
+    &:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.42);
+    }
+  }
+
+  button[type='button'] {
+    background: #f1f5f9;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+
+    &:hover { background: #e2e8f0; }
+  }
+
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+	}
+}

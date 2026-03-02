@@ -1,0 +1,169 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="transaction-form">
+  <div class="form-header">
+    <h2>Transaction Details</h2>
+    <p class="subtitle">Fill all required fields to get an instant fraud risk score.</p>
+  </div>
+
+  <!-- Section 1: Core Transaction -->
+  <div class="form-section">
+  <h3 class="section-title"><span class="section-icon">💳</span> Transaction Info</h3>
+  <div class="form-grid">
+    <div class="form-row" [class.invalid]="form.get('amount_ngn')?.invalid && form.get('amount_ngn')?.touched">
+      <label for="amount_ngn">Amount (NGN)</label>
+      <input id="amount_ngn" type="number" formControlName="amount_ngn" placeholder="e.g. 150000" />
+      <small *ngIf="form.get('amount_ngn')?.invalid && form.get('amount_ngn')?.touched">Enter a valid amount greater than 0.</small>
+    </div>
+
+    <div class="form-row" [class.invalid]="form.get('transaction_type')?.invalid && form.get('transaction_type')?.touched">
+      <label for="transaction_type">Transaction Type</label>
+      <select id="transaction_type" formControlName="transaction_type">
+        <option value="" disabled>Select type</option>
+        <option *ngFor="let t of transactionTypes" [value]="t">{{ t }}</option>
+      </select>
+      <small *ngIf="form.get('transaction_type')?.invalid && form.get('transaction_type')?.touched">Select a transaction type.</small>
+    </div>
+
+    <div class="form-row" [class.invalid]="form.get('merchant_category')?.invalid && form.get('merchant_category')?.touched">
+      <label for="merchant_category">Merchant Category</label>
+      <select id="merchant_category" formControlName="merchant_category">
+        <option value="" disabled>Select category</option>
+        <option *ngFor="let c of merchantCategories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <div class="form-row" [class.invalid]="form.get('location')?.invalid && form.get('location')?.touched">
+      <label for="location">Location (City)</label>
+      <select id="location" formControlName="location">
+        <option value="" disabled>Select city</option>
+        <option *ngFor="let l of locations" [value]="l">{{ l }}</option>
+      </select>
+    </div>
+
+    <div class="form-row" [class.invalid]="form.get('device_used')?.invalid && form.get('device_used')?.touched">
+      <label for="device_used">Device Used</label>
+      <select id="device_used" formControlName="device_used">
+        <option value="" disabled>Select device</option>
+        <option *ngFor="let d of devicesUsed" [value]="d">{{ d }}</option>
+      </select>
+    </div>
+
+    <div class="form-row" [class.invalid]="form.get('payment_channel')?.invalid && form.get('payment_channel')?.touched">
+      <label for="payment_channel">Payment Channel</label>
+      <select id="payment_channel" formControlName="payment_channel">
+        <option value="" disabled>Select channel</option>
+        <option *ngFor="let p of paymentChannels" [value]="p">{{ p }}</option>
+      </select>
+    </div>
+
+    <div class="form-row" [class.invalid]="form.get('sender_persona')?.invalid && form.get('sender_persona')?.touched">
+      <label for="sender_persona">Sender Profile</label>
+      <select id="sender_persona" formControlName="sender_persona">
+        <option value="" disabled>Select profile</option>
+        <option *ngFor="let s of senderPersonas" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+  </div>
+  </div>
+
+  <!-- Section 2: Risk Scores -->
+  <div class="form-section">
+  <h3 class="section-title"><span class="section-icon">📊</span> Risk Signals</h3>
+  <div class="form-grid">
+    <!-- Minutes Since Last Transaction -->
+    <div class="form-row pill-row">
+      <div class="pill-header">
+        <label>Minutes Since Last Transaction
+          <span class="tooltip-icon" title="How many minutes passed since this account's last transaction. Very low values may indicate automated fraud.">ⓘ</span>
+        </label>
+        <span class="pill-badge warn" *ngIf="form.get('time_since_last_transaction')?.value <= 2">⚠ Very recent</span>
+        <span class="pill-badge ok"   *ngIf="form.get('time_since_last_transaction')?.value > 2">✓ Normal</span>
+      </div>
+      <div class="pill-group">
+        <button type="button" class="pill"
+                *ngFor="let opt of timeSinceOpts"
+                [class.active]="form.get('time_since_last_transaction')?.value === opt.value"
+                (click)="setField('time_since_last_transaction', opt.value)">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Deviation from User's Usual Spend -->
+    <div class="form-row pill-row">
+      <div class="pill-header">
+        <label>Deviation from User's Usual Spend
+          <span class="tooltip-icon" title="How far this amount is from the user's typical spending pattern. 0 = matches normal spend · 5+ = highly unusual amount.">ⓘ</span>
+        </label>
+        <span class="pill-badge warn" *ngIf="form.get('spending_deviation_score')?.value >= 5">⚠ Highly unusual</span>
+        <span class="pill-badge ok"   *ngIf="form.get('spending_deviation_score')?.value < 5">✓ Normal</span>
+      </div>
+      <div class="pill-group">
+        <button type="button" class="pill"
+                *ngFor="let opt of spendDeviationOpts"
+                [class.active]="form.get('spending_deviation_score')?.value === opt.value"
+                (click)="setField('spending_deviation_score', opt.value)">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Recent Transaction Count -->
+    <div class="form-row pill-row">
+      <div class="pill-header">
+        <label>Recent Transaction Count (last hour)
+          <span class="tooltip-icon" title="Number of transactions this account made in the last hour. 1–3 = normal · 10+ = suspicious high frequency.">ⓘ</span>
+        </label>
+        <span class="pill-badge warn" *ngIf="form.get('velocity_score')?.value >= 10">⚠ High frequency</span>
+        <span class="pill-badge ok"   *ngIf="form.get('velocity_score')?.value < 10">✓ Normal</span>
+      </div>
+      <div class="pill-group">
+        <button type="button" class="pill"
+                *ngFor="let opt of velocityOpts"
+                [class.active]="form.get('velocity_score')?.value === opt.value"
+                (click)="setField('velocity_score', opt.value)">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Location Anomaly Flag -->
+    <div class="form-row pill-row">
+      <div class="pill-header">
+        <label>Location Anomaly Flag
+          <span class="tooltip-icon" title="How unusual the transaction location is for this user. 0.0 = expected location · 1.0 = impossible travel or completely unknown location.">ⓘ</span>
+        </label>
+        <span class="pill-badge warn" *ngIf="form.get('geo_anomaly_score')?.value >= 0.7">⚠ Highly unusual</span>
+        <span class="pill-badge ok"   *ngIf="form.get('geo_anomaly_score')?.value < 0.7">✓ Normal</span>
+      </div>
+      <div class="pill-group">
+        <button type="button" class="pill"
+                *ngFor="let opt of geoOpts"
+                [class.active]="form.get('geo_anomaly_score')?.value === opt.value"
+                (click)="setField('geo_anomaly_score', opt.value)">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Section 3: Security Flags -->
+  <div class="form-section">
+  <h3 class="section-title"><span class="section-icon">🔒</span> Security Flags</h3>
+  <div class="checkbox-grid">
+    <label class="toggle-card">
+      <input type="checkbox" formControlName="bvn_linked" />
+      BVN Linked to Account
+    </label>
+    <label class="toggle-card">
+      <input type="checkbox" formControlName="new_device_transaction" />
+      New / Unrecognised Device
+    </label>
+  </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" [disabled]="form.invalid">Check Transaction</button>
+    <button type="button" (click)="reset()">Reset</button>
+  </div>
+</form>

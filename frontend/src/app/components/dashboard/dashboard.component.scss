@@ -1,0 +1,141 @@
+.dashboard {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+}
+
+// ── Top navigation bar ──────────────────────────────────────────
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.75rem;
+
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .brand-icon { font-size: 1.5rem; }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.3px;
+    }
+  }
+
+  .topbar-badge {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-soft);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid #bfdbfe;
+  }
+}
+
+// ── Page header ─────────────────────────────────────────────────
+.dashboard-header {
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0891b2 100%);
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 6rem;
+    opacity: 0.08;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    opacity: 0.85;
+    max-width: 65ch;
+    line-height: 1.55;
+    font-size: 0.97rem;
+  }
+
+  strong { font-weight: 700; opacity: 1; }
+}
+
+.header-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.1rem;
+}
+
+.stat-chip {
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+// ── Two-column layout ───────────────────────────────────────────
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+// Result panel stays in view as the long form scrolls
+.result-panel {
+  position: sticky;
+  top: 1.25rem;
+}
+
+// ── Footer ──────────────────────────────────────────────────────
+.dashboard-footer {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 860px) {
+  .dashboard-main {
+    grid-template-columns: 1fr;
+  }
+
+  // On mobile: result panel sits above form after it has content
+  .result-panel {
+    position: static;   // un-sticky on narrow screens
+    order: -1;          // always renders above the form panel
+  }
+
+  .dashboard-header { padding: 1.5rem 1.25rem; }
+}
