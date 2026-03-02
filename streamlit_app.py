@@ -147,7 +147,7 @@ with form_col:
     st.markdown("**Spending Deviation Score**")
     dev_options = {
         "Normal (0)": 0.0,
-        "Slightly off (2)": 2.0,
+        "Moderate (2)": 2.0,
         "Unusual (5)": 5.0,
         "Very unusual (8)": 8.0,
         "Extreme (10)": 10.0,
@@ -181,7 +181,7 @@ with form_col:
     st.markdown("**Geo Anomaly Score** *(location unusualness)*")
     geo_options = {
         "Normal location (0.0)": 0.0,
-        "Slightly off (0.3)": 0.3,
+        "Moderate anomaly (0.3)": 0.3,
         "Unusual location (0.7)": 0.7,
         "Impossible travel (1.0)": 1.0,
     }
