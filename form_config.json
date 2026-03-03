@@ -64,9 +64,21 @@
     {
       "title": "👤 Sender Profile",
       "fields": [
-        { "name": "sender_persona",         "type": "select", "label": "Sender Persona" },
-        { "name": "bvn_linked",             "type": "toggle", "label": "BVN Linked?",  "default": null },
-        { "name": "new_device_transaction", "type": "toggle", "label": "New Device?",  "default": null }
+        { "name": "sender_persona", "type": "select", "label": "Sender Persona" },
+        {
+          "name": "bvn_linked",
+          "type": "toggle",
+          "label": "BVN Linked?",
+          "true_label":  "Yes — Account is BVN verified (lower risk)",
+          "false_label": "No — No BVN registered (higher risk)"
+        },
+        {
+          "name": "new_device_transaction",
+          "type": "toggle",
+          "label": "New Device?",
+          "true_label":  "Yes — First time on this device (higher risk)",
+          "false_label": "No — Recognized device (lower risk)"
+        }
       ]
     },
     {
@@ -75,7 +87,8 @@
         {
           "name": "time_since_last_transaction",
           "type": "pills",
-          "label": "Minutes Since Last Transaction",
+          "label": "⏱ Time Since Last Transaction — how recently was the previous transaction made?",
+          "short_label": "Minutes Since Last Transaction",
           "options": {
             "Just now (< 1 min)": 0.5,
             "< 30 minutes": 15.0,
@@ -89,7 +102,8 @@
         {
           "name": "spending_deviation_score",
           "type": "pills",
-          "label": "Spending Deviation Score",
+          "label": "📈 Spending Deviation — how far this amount differs from the sender's usual pattern",
+          "short_label": "Spending Deviation Score",
           "options": {
             "Normal (0)": 0.0,
             "Moderate (2)": 2.0,
@@ -102,7 +116,8 @@
         {
           "name": "velocity_score",
           "type": "pills",
-          "label": "Velocity Score",
+          "label": "🔁 Velocity Score — number of rapid back-to-back transactions in a short window",
+          "short_label": "Velocity Score",
           "options": {
             "None (0)": 0,
             "Low (1-3)": 2,
@@ -115,7 +130,8 @@
         {
           "name": "geo_anomaly_score",
           "type": "pills",
-          "label": "Geo Anomaly Score",
+          "label": "📍 Geo Anomaly — how unusual the transaction location is compared to typical activity",
+          "short_label": "Geo Anomaly Score",
           "options": {
             "Normal (0.0)": 0.0,
             "Moderate anomaly (0.3)": 0.3,

@@ -127,12 +127,14 @@ def _render_field(field, values, encoders):
         )
 
     elif ftype == 'toggle':
+        true_label  = field.get('true_label',  '✅ Yes')
+        false_label = field.get('false_label', '❌ No')
         values[name] = st.radio(
             label,
-            options=['', True, False],
-            format_func=lambda x: "Select…" if x == '' else ("✅ Yes" if x is True else "❌ No"),
-            horizontal=True,
-            index=0
+            options=[True, False],
+            format_func=lambda x, tl=true_label, fl=false_label: tl if x is True else fl,
+            horizontal=False,
+            index=None,
         )
 
     elif ftype == 'pills':
