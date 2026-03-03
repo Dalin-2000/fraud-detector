@@ -9,7 +9,7 @@ st.set_page_config(
     page_title="Fraud Detector",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # ── Global CSS ─────────────────────────────────────────────────
@@ -95,17 +95,25 @@ amt_std         = bundle['train_amount_std']
 
 # ── Sidebar ────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## 🛡️ Fraud Detector")
-    st.caption("Nigerian Financial Transactions")
+    st.markdown("## � How to Use")
     st.divider()
-    st.markdown("**Model**")
-    st.markdown('<span class="sb-badge">XGBoost (Tuned)</span>', unsafe_allow_html=True)
-    st.markdown("**Decision Threshold**")
-    st.markdown(f'<span class="sb-badge">{threshold:.3f}</span>', unsafe_allow_html=True)
-    st.markdown("**Feature Count**")
-    st.markdown(f'<span class="sb-badge">{len(feature_names)} features</span>', unsafe_allow_html=True)
-    st.divider()
-    st.caption("Fill in the transaction form and click **Analyze** to receive a real-time fraud prediction.")
+    st.markdown("""
+**1. Core Transaction**  
+Enter the amount, type, channel, merchant category, location, and device.
+
+**2. Sender Profile**  
+Select the sender persona and indicate whether the account has a BVN and whether the device is new.
+
+**3. Risk Signals**  
+Adjust the four sliders to reflect how unusual this transaction looks:
+- ⏱ Time since the last transaction
+- 📈 How much spending deviates from normal
+- 🔁 Number of rapid back-to-back transactions
+- 📍 How unusual the transaction location is
+
+**4. Analyze**  
+Click **Analyze Transaction** to get an instant fraud probability score and risk breakdown.
+    """)
 
 # ── Hero header ────────────────────────────────────────────────
 st.markdown("""
