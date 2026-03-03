@@ -28,12 +28,12 @@ html, body, [class*="css"] { font-family: "Inter", "Segoe UI", sans-serif; }
 
 .card {
     background: white; border: 1px solid #e2e8f0; border-radius: 12px;
-    padding: 1.4rem 1.6rem; margin-bottom: 1.2rem;
+    padding: 0.75rem 1rem; margin-bottom: 0.75rem;
     box-shadow: 0 1px 4px rgba(0,0,0,.04);
 }
 .card-title {
     font-size: .8rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .08em; color: #64748b; margin-bottom: .9rem;
+    letter-spacing: .08em; color: #64748b; margin-bottom: .5rem;
 }
 .thin-div { border:none; border-top:1px solid #e2e8f0; margin:.9rem 0; }
 
@@ -184,7 +184,7 @@ with form_col:
         bvn_linked = st.radio(
             "BVN Linked?",
             options=[True, False],
-            format_func=lambda x: "✅  Yes — Verified" if x else "❌  No — Unverified",
+            format_func=lambda x: "Yes — Verified" if x else "No — Unverified",
             horizontal=True,
             help="Whether the account has a Bank Verification Number"
         )
@@ -192,7 +192,7 @@ with form_col:
         new_device_transaction = st.radio(
             "New Device?",
             options=[False, True],
-            format_func=lambda x: "⚠️  Yes — First use" if x else "✅  No — Known device",
+            format_func=lambda x: "Yes — First use" if x else "No — Known device",
             horizontal=True,
             help="Is this the first time this device is used?"
         )
