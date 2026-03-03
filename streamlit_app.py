@@ -464,3 +464,52 @@ with result_col:
             f'border-radius:10px;padding:.8rem 1rem;">{rows_html}</div>',
             unsafe_allow_html=True
         )
+
+        def _render_field(field, values, encoders):
+            name  = field['name']
+            label = field['label']
+            ftype = field['type']
+        
+            if ftype == 'select':
+                options = [''] + sorted(encoders[name].classes_) if name in encoders else ['']
+                values[name] = st.selectbox(label, options=options,
+                                            format_func=lambda x: f"Select {label}…" if x == '' else x,
+                                            index=0)
+        
+            elif ftype == 'select_mapped':
+                # Display with icons, store original value
+                display_options = [''] + list(field['options'].keys())
+                raw_options     = [''] + list(field['options'].values())
+                choice = st.selectbox(
+                    label,
+                    options=display_options,
+                    format_func=lambda x: f"Select {label}…" if x == '' else x,
+                    index=0
+                )
+                values[name] = field['options'].get(choice, '')
+        
+            elif ftype == 'number':
+                values[name] = st.number_input(
+                    label,
+                    min_value=float(field.get('min', 0)),
+                    max_value=float(field.get('max', 1_000_000)),
+                    value=None,
+                    step=500.0,
+                    format="%.2f",
+                    placeholder="Enter amount…"
+                )
+        
+            elif ftype == 'toggle':
+                values[name] = st.radio(
+                    label,
+                    options=['', True, False],
+                    format_func=lambda x: "Select…" if x == '' else ("✅ Yes" if x is True else "❌ No"),
+                    horizontal=True,
+                    index=0
+                )
+        
+            elif ftype == 'pills':
+                options = list(field['options'].keys())
+                default = field.get('default', options[0])
+                choice  = st.select_slider(label, options=options, value=default)
+                values[name] = field['options'][choice]

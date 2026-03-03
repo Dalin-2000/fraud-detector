@@ -3,20 +3,70 @@
     {
       "title": "💳 Core Transaction",
       "fields": [
-        { "name": "transaction_type",  "type": "select", "label": "Transaction Type" },
-        { "name": "amount_ngn",        "type": "number", "label": "Amount (NGN)", "min": 100, "max": 10000000, "default": 15000 },
-        { "name": "merchant_category", "type": "select", "label": "Merchant Category" },
-        { "name": "payment_channel",   "type": "select", "label": "Payment Channel" },
-        { "name": "location",          "type": "select", "label": "Location (City)" },
-        { "name": "device_used",       "type": "select", "label": "Device Used" }
+        {
+          "name": "transaction_type",
+          "type": "select",
+          "label": "Transaction Type"
+        },
+        {
+          "name": "amount_ngn",
+          "type": "number",
+          "label": "Amount (NGN)",
+          "min": 1,
+          "max": 1000000000,
+          "default": 0
+        },
+        {
+          "name": "merchant_category",
+          "type": "select_mapped",
+          "label": "Merchant Category",
+          "options": {
+            "🔄 Other Transaction":              "Other Transaction",
+            "🚗 Bolt Ride":                      "Bolt Ride",
+            "🛒 SPAR Purchase":                  "SPAR Purchase",
+            "🏧 ATM Withdrawal":                 "ATM Withdrawal",
+            "🎬 Filmhouse Cinemas Ticket":        "Filmhouse Cinemas Ticket",
+            "🎲 Bet9ja Stake":                   "Bet9ja Stake",
+            "🛍️ Shoprite Purchase":              "Shoprite Purchase",
+            "💳 POS Withdrawal":                 "POS Withdrawal",
+            "✈️ Arik Air Flight":                "Arik Air Flight",
+            "🚌 ABC Transport Ticket":           "ABC Transport Ticket",
+            "🎰 SportyBet Deposit":              "SportyBet Deposit",
+            "🪣 Local Market Purchase":          "Local Market Purchase",
+            "⛪ Church Offering":                "Church Offering",
+            "⚡ Ikeja Electric Bill":            "Ikeja Electric Bill",
+            "💸 Flutterwave Payment":            "Flutterwave Payment",
+            "💰 Paystack Payment":               "Paystack Payment",
+            "📺 DSTV Payment":                   "DSTV Payment",
+            "📶 Data Subscription (Airtel)":     "Data Subscription (Airtel)",
+            "🛺 Konga Order":                    "Konga Order",
+            "📦 Jumia Purchase":                 "Jumia Purchase",
+            "📱 Airtime Top-up (MTN)":           "Airtime Top-up (MTN)"
+          }
+        },
+        {
+          "name": "payment_channel",
+          "type": "select",
+          "label": "Payment Channel"
+        },
+        {
+          "name": "location",
+          "type": "select",
+          "label": "Location (City)"
+        },
+        {
+          "name": "device_used",
+          "type": "select",
+          "label": "Device Used"
+        }
       ]
     },
     {
       "title": "👤 Sender Profile",
       "fields": [
         { "name": "sender_persona",         "type": "select", "label": "Sender Persona" },
-        { "name": "bvn_linked",             "type": "toggle", "label": "BVN Linked?",  "default": true },
-        { "name": "new_device_transaction", "type": "toggle", "label": "New Device?",  "default": false }
+        { "name": "bvn_linked",             "type": "toggle", "label": "BVN Linked?",  "default": null },
+        { "name": "new_device_transaction", "type": "toggle", "label": "New Device?",  "default": null }
       ]
     },
     {
@@ -34,7 +84,7 @@
             "Half day": 720.0,
             "1 day+": 1440.0
           },
-          "default": "1 hour"
+          "default": "Just now (< 1 min)"
         },
         {
           "name": "spending_deviation_score",
