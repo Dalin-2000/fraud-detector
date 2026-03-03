@@ -136,19 +136,22 @@ with form_col:
         transaction_type = st.selectbox(
             "Transaction Type",
             options=sorted(encoders['transaction_type'].classes_),
+            index=None, placeholder="Select type…",
             help="Type of financial transaction"
         )
         amount_ngn = st.number_input(
             "Amount (NGN) ₦",
             min_value=100.0,
             max_value=10_000_000.0,
-            value=15_000.0,
+            value=None,
             step=500.0,
-            format="%.2f"
+            format="%.2f",
+            placeholder="Enter amount"
         )
         payment_channel = st.selectbox(
             "Payment Channel",
             options=sorted(encoders['payment_channel'].classes_),
+            index=None, placeholder="Select channel…",
             help="Route used to make the payment"
         )
 
@@ -156,16 +159,19 @@ with form_col:
         merchant_category = st.selectbox(
             "Merchant Category",
             options=sorted(encoders['merchant_category'].classes_),
+            index=None, placeholder="Select category…",
             help="Type of merchant/business"
         )
         location = st.selectbox(
             "Location (City)",
             options=sorted(encoders['location'].classes_),
+            index=None, placeholder="Select city…",
             help="City where the transaction occurred"
         )
         device_used = st.selectbox(
             "Device Used",
             options=sorted(encoders['device_used'].classes_),
+            index=None, placeholder="Select device…",
             help="Channel or device used"
         )
     st.markdown('</div>', unsafe_allow_html=True)
@@ -176,6 +182,7 @@ with form_col:
     sender_persona = st.selectbox(
         "Sender Persona",
         options=sorted(encoders['sender_persona'].classes_),
+        index=None, placeholder="Select persona…",
         help="Behavioral profile of the sender"
     )
 
@@ -185,6 +192,7 @@ with form_col:
             "BVN Linked?",
             options=[True, False],
             format_func=lambda x: "Yes — Verified" if x else "No — Unverified",
+            index=None,
             horizontal=True,
             help="Whether the account has a Bank Verification Number"
         )
@@ -193,6 +201,7 @@ with form_col:
             "New Device?",
             options=[False, True],
             format_func=lambda x: "Yes — First use" if x else "No — Known device",
+            index=None,
             horizontal=True,
             help="Is this the first time this device is used?"
         )
@@ -290,6 +299,22 @@ with result_col:
         """, unsafe_allow_html=True)
 
     else:
+        # ── Validate all fields filled ─────────────────────────
+        missing = []
+        if transaction_type is None: missing.append("Transaction Type")
+        if amount_ngn is None:       missing.append("Amount")
+        if payment_channel is None:  missing.append("Payment Channel")
+        if merchant_category is None:missing.append("Merchant Category")
+        if location is None:         missing.append("Location")
+        if device_used is None:      missing.append("Device Used")
+        if sender_persona is None:   missing.append("Sender Persona")
+        if bvn_linked is None:       missing.append("BVN Linked")
+        if new_device_transaction is None: missing.append("New Device")
+
+        if missing:
+            st.warning(f"Please fill in: **{', '.join(missing)}**")
+            st.stop()
+
         # ── Feature engineering (mirrors notebook) ────────────
         now_hour        = 14          # default business hour for demo
         day_of_week     = 2
