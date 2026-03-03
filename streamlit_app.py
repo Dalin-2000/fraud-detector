@@ -164,22 +164,22 @@ with form_col:
 
     # ── Section 2: Sender Profile ─────────────────────────────
     st.markdown('<div class="card"><div class="card-title">👤 Sender Profile</div>', unsafe_allow_html=True)
-    c3, c4 = st.columns(2)
 
+    sender_persona = st.selectbox(
+        "Sender Persona",
+        options=sorted(encoders['sender_persona'].classes_),
+        help="Behavioral profile of the sender"
+    )
+
+    c3, c4 = st.columns(2)
     with c3:
-        sender_persona = st.selectbox(
-            "Sender Persona",
-            options=sorted(encoders['sender_persona'].classes_),
-            help="Behavioral profile of the sender"
-        )
         bvn_linked = st.radio(
             "BVN Linked?",
             options=[True, False],
-            format_func=lambda x: "✅ Yes — BVN Linked" if x else "❌ No — No BVN",
+            format_func=lambda x: "✅  Yes — Verified" if x else "❌  No — Unverified",
             horizontal=True,
             help="Whether the account has a Bank Verification Number"
         )
-
     with c4:
         new_device_transaction = st.radio(
             "New Device?",
