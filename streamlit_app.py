@@ -392,7 +392,6 @@ with result_col:
             ("Merchant",  merchant_category),
             ("Location",  location),
             ("Device",    device_used),
-            ("Threshold", f"{threshold:.3f}"),
         ]
         rows_html = "".join(
             f'<div class="summary-row">'
