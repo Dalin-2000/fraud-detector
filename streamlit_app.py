@@ -530,7 +530,6 @@ with result_col:
         _bar("Spending Deviation", min(spending_deviation_score / 10.0, 1.0))
         _bar("New Device",         float(new_device_transaction))
         _bar("No BVN",             float(not bvn_linked))
-        _bar("Composite Risk",     min(composite_risk / 5.0, 1.0))
 
         # ── Summary ────────────────────────────────────────────
         st.markdown("<br>**Transaction Summary**", unsafe_allow_html=True)
