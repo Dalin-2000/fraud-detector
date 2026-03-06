@@ -16,27 +16,55 @@ st.set_page_config(
 # ── Global CSS ─────────────────────────────────────────────────
 st.markdown("""
 <style>
-html, body, [class*="css"] { font-family: "Inter", "Segoe UI", sans-serif; }
+html, body, [class*="css"] { 
+    font-family: "Inter", "Segoe UI", sans-serif;
+    color: #0f172a;
+}
+[data-testid="stAppViewContainer"] {
+    background:
+        radial-gradient(circle at top left, rgba(125, 211, 252, 0.30), transparent 28%),
+        radial-gradient(circle at top right, rgba(253, 224, 71, 0.22), transparent 24%),
+        linear-gradient(180deg, #fdfefe 0%, #f3f8ff 52%, #eef6ff 100%);
+}
+[data-testid="stHeader"] { background: rgba(255, 255, 255, 0); }
+[data-testid="stMainBlockContainer"] { color: #0f172a; }
 #MainMenu, footer { visibility: hidden; }
 .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
 
 .hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+    background: linear-gradient(135deg, #fff7ed 0%, #eef7ff 55%, #f0f9ff 100%);
+    border: 1px solid #dbeafe;
     border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; color: white;
+    box-shadow: 0 20px 45px rgba(148, 163, 184, 0.16);
 }
-.hero h1 { margin:0; font-size:1.9rem; font-weight:800; letter-spacing:-0.02em; color:white !important; }
-.hero p  { margin:.4rem 0 0; font-size:.95rem; color:#94a3b8 !important; }
+.hero h1 { margin:0; font-size:1.9rem; font-weight:800; letter-spacing:-0.02em; color:#0f172a !important; }
+.hero p  { margin:.4rem 0 0; font-size:.95rem; color:#475569 !important; }
 
 .card {
-    background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.88); border: 1px solid #dbeafe; border-radius: 12px;
     padding: 0.75rem 1rem; margin-bottom: 0.75rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    box-shadow: 0 12px 30px rgba(148, 163, 184, 0.10);
+    backdrop-filter: blur(6px);
 }
 .card-title {
     font-size: .8rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: .08em; color: #64748b; margin-bottom: .5rem;
+    letter-spacing: .08em; color: #2563eb; margin-bottom: .5rem;
 }
-.thin-div { border:none; border-top:1px solid #e2e8f0; margin:.9rem 0; }
+.thin-div { border:none; border-top:1px solid #dbeafe; margin:.35rem 0 .45rem; }
+
+.risk-label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.1rem;
+}
+
+.risk-desc {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: #64748b;
+    margin-bottom: 0.3rem;
+}
 
 .result-card  { border-radius:14px; padding:1.8rem; text-align:center; margin-bottom:1rem; }
 .result-fraud { background:#fff1f2; border:2px solid #ef4444; }
@@ -47,7 +75,7 @@ html, body, [class*="css"] { font-family: "Inter", "Segoe UI", sans-serif; }
 
 .factor-row { display:flex; align-items:center; gap:.6rem; margin-bottom:.55rem; font-size:.88rem; }
 .factor-label { flex:1; color:#374151; font-weight:500; }
-.factor-bar-bg { flex:2; height:6px; background:#e5e7eb; border-radius:99px; overflow:hidden; }
+.factor-bar-bg { flex:2; height:6px; background:#dbeafe; border-radius:99px; overflow:hidden; }
 .factor-bar-fill { height:100%; border-radius:99px; }
 
 .summary-row { display:flex; justify-content:space-between; padding:.45rem 0; font-size:.875rem; border-bottom:1px solid #f1f5f9; }
@@ -55,15 +83,93 @@ html, body, [class*="css"] { font-family: "Inter", "Segoe UI", sans-serif; }
 .summary-key { color:#64748b; }
 .summary-val { color:#0f172a; font-weight:600; }
 
-[data-testid="stSidebar"] { background:#0f172a; }
-[data-testid="stSidebar"] * { color:#e2e8f0 !important; }
-[data-testid="stSidebar"] hr { border-color:#1e293b !important; }
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #f8fbff 0%, #eef6ff 100%);
+    border-right: 1px solid #dbeafe;
+}
+[data-testid="stSidebar"] * { color:#0f172a !important; }
+[data-testid="stSidebar"] hr { border-color:#dbeafe !important; }
+
+[data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] h1,
+[data-testid="stMarkdownContainer"] h2,
+[data-testid="stMarkdownContainer"] h3,
+label {
+    color: #0f172a !important;
+}
+
+div[data-baseweb="select"] > div,
+[data-testid="stNumberInput"] input,
+[data-testid="stTextInput"] input,
+[data-baseweb="base-input"] input {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    border-radius: 10px !important;
+}
+
+div[data-baseweb="popover"],
+div[data-baseweb="popover"] * {
+    color: #0f172a !important;
+}
+
+div[data-baseweb="popover"] [role="listbox"] {
+    background: #ffffff !important;
+    border: 1px solid #dbeafe !important;
+    border-radius: 12px !important;
+    box-shadow: 0 16px 36px rgba(148, 163, 184, 0.18) !important;
+}
+
+div[data-baseweb="popover"] [role="option"] {
+    background: #ffffff !important;
+    color: #0f172a !important;
+}
+
+div[data-baseweb="popover"] [role="option"][aria-selected="true"] {
+    background: #eff6ff !important;
+    color: #1d4ed8 !important;
+}
+
+div[data-baseweb="popover"] [role="option"]:hover {
+    background: #f8fbff !important;
+}
+
+div[data-baseweb="select"] > div:focus-within,
+[data-testid="stNumberInput"] input:focus,
+[data-testid="stTextInput"] input:focus,
+[data-baseweb="base-input"] input:focus {
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.20) !important;
+}
+
+/* Hide browser spin buttons so numeric fields look cleaner */
+[data-testid="stNumberInput"] input::-webkit-outer-spin-button,
+[data-testid="stNumberInput"] input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+[data-testid="stNumberInput"] input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Keep compact select fields tidy */
+[data-testid="stSelectbox"] {
+    margin-bottom: 0.2rem !important;
+}
+
+[data-testid="stSelectbox"] label {
+    margin-bottom: 0.2rem !important;
+}
 
 .stButton > button[kind="primary"] {
-    background: linear-gradient(135deg,#1e40af,#0f172a) !important;
+    background: linear-gradient(135deg,#2563eb,#0ea5e9) !important;
     border:none !important; border-radius:10px !important;
     font-weight:700 !important; font-size:1rem !important;
     padding:.7rem 1rem !important; letter-spacing:.02em !important;
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.22) !important;
 }
 .stButton > button[kind="primary"]:hover { opacity:.88 !important; }
 </style>
@@ -116,15 +222,22 @@ def _render_field(field, values, encoders):
         values[name] = field['options'].get(choice, '')
 
     elif ftype == 'number':
-        values[name] = st.number_input(
-            label,
-            min_value=float(field.get('min', 0)),
-            max_value=float(field.get('max', 1_000_000)),
-            value=None,
-            step=500.0,
-            format="%.2f",
-            placeholder="Enter amount…"
-        )
+        if name == 'amount_ngn':
+            values[name] = st.text_input(
+                label,
+                value="",
+                placeholder="Enter amount..."
+            )
+        else:
+            values[name] = st.number_input(
+                label,
+                min_value=float(field.get('min', 0)),
+                max_value=float(field.get('max', 1_000_000)),
+                value=None,
+                step=500.0,
+                format="%.2f",
+                placeholder="Enter amount..."
+            )
 
     elif ftype == 'toggle':
         true_label  = field.get('true_label',  '✅ Yes')
@@ -140,7 +253,28 @@ def _render_field(field, values, encoders):
     elif ftype == 'pills':
         opts    = list(field['options'].keys())
         default = field.get('default', opts[0])
-        choice  = st.select_slider(label, options=opts, value=default)
+        display_label = field.get('short_label', label)
+        description = field.get('description')
+        if not description and '—' in label:
+            description = label.split('—', 1)[1].strip()
+
+        st.markdown(
+            f'<div class="risk-label">{display_label}</div>',
+            unsafe_allow_html=True,
+        )
+        if description:
+            st.markdown(
+                f'<div class="risk-desc">{description}</div>',
+                unsafe_allow_html=True,
+            )
+
+        choice  = st.selectbox(
+            display_label,
+            options=opts,
+            index=opts.index(default),
+            help=label,
+            label_visibility="collapsed",
+        )
         values[name] = field['options'][choice]
 
 # ── Sidebar ────────────────────────────────────────────────────
@@ -155,7 +289,7 @@ Enter the amount, type, channel, merchant category, location, and device.
 Select the sender persona and indicate whether the account has a BVN and whether the device is new.
 
 **3. Risk Signals**
-Adjust the four sliders to reflect how unusual this transaction looks.
+Choose the four preset risk levels to reflect how unusual this transaction looks.
 
 **4. Analyze**
 Click **Analyze Transaction** to get an instant fraud probability score.
@@ -185,12 +319,18 @@ with form_col:
             field = fields[i]
             ftype = field['type']
 
-            if ftype in ['pills']:
-                # Full width
-                _render_field(field, values, encoders)
-                if i < len(fields) - 1:
-                    st.markdown('<hr class="thin-div">', unsafe_allow_html=True)
-                i += 1
+            if ftype == 'pills':
+                # Pair compact risk selectors side by side
+                if i + 1 < len(fields) and fields[i + 1]['type'] == 'pills':
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        _render_field(fields[i], values, encoders)
+                    with c2:
+                        _render_field(fields[i + 1], values, encoders)
+                    i += 2
+                else:
+                    _render_field(field, values, encoders)
+                    i += 1
 
             elif ftype == 'toggle':
                 # Pair toggles side by side
@@ -253,7 +393,16 @@ with result_col:
 
         # ── Pull values ────────────────────────────────────────
         transaction_type         = values['transaction_type']
-        amount_ngn               = float(values['amount_ngn'])
+        amount_raw = str(values['amount_ngn']).replace(',', '').strip()
+        try:
+            amount_ngn = float(amount_raw)
+        except ValueError:
+            st.warning("Please enter a valid amount.")
+            st.stop()
+
+        if amount_ngn <= 0:
+            st.warning("Amount must be greater than zero.")
+            st.stop()
         payment_channel          = values['payment_channel']
         merchant_category        = values['merchant_category']
         location                 = values['location']
