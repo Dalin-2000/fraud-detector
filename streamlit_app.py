@@ -299,7 +299,7 @@ Click **Analyze Transaction** to get an instant fraud probability score.
 st.markdown("""
 <div class="hero">
     <h1>🛡️ Transaction Fraud Detector</h1>
-    <p>Enter transaction details below to assess fraud likelihood using a trained XGBoost model.</p>
+    <p>Enter transaction details below to assess fraud likelihood using a trained model.</p>
 </div>
 """, unsafe_allow_html=True)
 
